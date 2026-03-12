@@ -17,7 +17,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        start1(stage);
+        //start1(stage);
         star2(stage);
     }
 
@@ -51,7 +51,7 @@ public class HelloApplication extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1100, 720);
-        stage.setTitle("IF-3001 Algoritmos y Estructuras de Datos");
+        stage.setTitle("PG-01 IF-3001 Algoritmos y Estructuras de Datos");
         stage.setScene(scene);
         stage.show();
 
