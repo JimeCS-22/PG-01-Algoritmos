@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
+import static model.Recursion.fibonacci;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RecursionTest {
@@ -18,5 +19,18 @@ class RecursionTest {
 
 
     }
+
+    @Test
+    void fibonacciTest(){
+
+        int n = 10;
+
+        long t1 = System.nanoTime();
+        long result = fibonacci(n);
+        long t2 = System.nanoTime();
+
+        System.out.println("El fibonacci de: " + n + " es " + result + "\n T(n): " + util.Utility.format(t2-t1) + " ns ");
+    }
+
 
 }
