@@ -5,4 +5,6 @@ module ucr.pg01 {
 
     opens ucr.pg01 to javafx.fxml;
     exports ucr.pg01;
+    exports controller;
+    opens controller to javafx.fxml;
 }
