@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="568.0" prefWidth="779.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="header-tag" BorderPane.alignment="CENTER">
+      <VBox prefHeight="130.0" prefWidth="823.0" styleClass="header-tag" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="787.0">
                <children>
                   <Label styleClass="header-badge" text="PG-01">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <VBox prefHeight="140.0" prefWidth="629.0">
+                  <VBox>
                      <children>
                         <Label prefHeight="18.0" prefWidth="338.0" styleClass="header-title" text="Recursividad Aplicada">
                            <font>
@@ -37,4 +41,30 @@
          </children>
       </VBox>
    </top>
+   <left>
+      <TabPane prefHeight="520.0" prefWidth="861.0" styleClass="main-tabs" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Factorial">
+               <content>
+                  <SplitPane dividerPositions="0.5" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="panel">
+                           <children>
+                              <Label prefHeight="14.0" prefWidth="256.0" styleClass="panel-title" text="Árbol de llamadas recursivas" />
+                              <Canvas fx:id="canvasTree" height="200.0" styleClass="tree-canvas" width="200.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="panel" />
+                     </items></SplitPane>
+               </content>
+            </Tab>
+          <Tab text="Fibonacci" />
+            <Tab text="Grafico">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </left>
 </BorderPane>
