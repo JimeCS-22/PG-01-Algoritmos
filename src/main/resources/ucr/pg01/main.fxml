@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="458.0" prefWidth="644.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="589.0" prefWidth="694.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <top>
-        <VBox prefHeight="121.0" prefWidth="600.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+        <VBox prefHeight="121.0" prefWidth="644.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0" stylesheets="@styles.css">
                     <children>
@@ -54,12 +60,130 @@
                                         <Canvas fx:id="canvasTree" height="200.0" styleClass="tree-canvas" width="200.0" />
                                     </children>
                                 </VBox>
-                                <VBox prefHeight="281.0" prefWidth="305.0" spacing="10.0" styleClass="panel" />
+                                <VBox prefHeight="281.0" prefWidth="305.0" spacing="10.0" styleClass="panel">
+                           <children>
+                              <Label text="Parámetros" />
+                              <HBox prefHeight="28.0" prefWidth="316.0">
+                                 <children>
+                                    <Label text="n = " />
+                                    <Label text="5" />
+                                 </children>
+                              </HBox>
+                              <Slider prefHeight="14.0" prefWidth="315.0" />
+                              <HBox prefHeight="35.0" prefWidth="316.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Calcular" />
+                                    <Button mnemonicParsing="false" text="Limpiar" />
+                                 </children>
+                              </HBox>
+                              <GridPane>
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label text="Resultado" />
+                                          <Label text="--" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Label text="Complejidad actual" />
+                                                <Label text="--" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label text="LLamadas" />
+                                          <Label text="--" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </GridPane>
+                              <Label text="Pasos de ejecución" />
+                              <ListView prefHeight="200.0" prefWidth="200.0" />
+                           </children></VBox>
                             </items>
                         </SplitPane>
                     </content>
                 </Tab>
-                <Tab text="Fibonacci" />
+                <Tab text="Fibonacci">
+               <content>
+                  <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="347.0">
+                           <children>
+                              <VBox layoutX="8.0" layoutY="8.0" prefHeight="402.0" prefWidth="322.0">
+                                 <children>
+                                    <Label styleClass="panel-title" text="Arbol de llamadas recursivas " />
+                                    <Canvas height="200.0" width="284.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="371.0">
+                           <children>
+                              <VBox layoutX="11.0" layoutY="14.0" prefHeight="407.0" prefWidth="319.0">
+                                 <children>
+                                    <Label text="Parametros" />
+                                    <HBox prefHeight="44.0" prefWidth="319.0">
+                                       <children>
+                                          <Label text="n=" />
+                                          <Label text=" 5" />
+                                       </children>
+                                    </HBox>
+                                    <Slider />
+                                    <HBox prefHeight="35.0" prefWidth="319.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" text="Calcular" />
+                                          <Button mnemonicParsing="false" text="Limpiar" />
+                                       </children>
+                                    </HBox>
+                                    <GridPane>
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Label text="Resultado" />
+                                                <Label text="--" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label text="Complejidad actual" />
+                                                <Label text="--" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                             <children>
+                                                <Label text="Llamadas" />
+                                                <Label text="--" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </GridPane>
+                                    <Label text="Pasos de ejecución" />
+                                    <ListView prefHeight="200.0" prefWidth="200.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </content></Tab>
                 <Tab text="Grafico">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
