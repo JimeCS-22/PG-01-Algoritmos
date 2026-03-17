@@ -13,14 +13,20 @@ class RecursionTest {
 
     @Test
     void factorialTest() {
-        int n = 5;
+        int [] list = {5,10,12,15,20};
 
-        long t1 = System.nanoTime();
-        long result = Recursion.factorial(n);
-        long t2 = System.nanoTime();
+        for (int n : list) {
+            AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
+            long t1 = System.nanoTime();
+            long result = Recursion.factorial(n, counter);
+            long t2 = System.nanoTime();
 
-        System.out.println("El factorial de " + n + " es " + result + "\nT(n): "+ util.Utility.format(t2-t1) + " ns" );
+            System.out.println("El factorial de " + n + " es " + util.Utility.format(result) +
+                    "\nTotal recursive calls: " + util.Utility.format(counter.get()) +
+                    "\nT(n): " + util.Utility.format(t2-t1) + " ns \n"
 
+            );
+        }
 
     }
 
