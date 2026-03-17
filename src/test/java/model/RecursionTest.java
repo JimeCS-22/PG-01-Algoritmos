@@ -23,6 +23,13 @@ class RecursionTest {
 
 
     }
+    /**
+     * Contador atómico utilizado para manejar incrementos de forma segura en entornos concurrentes.
+     * <p>
+     * Se inicializa en 0 y permite operaciones atómicas como incrementos y decrementos
+     * sin necesidad de sincronización explícita.
+     * Es útil cuando múltiples hilos necesitan modificar el mismo contador.
+     */
 
     @Test
     void fibonacciTest(){
@@ -70,9 +77,14 @@ class RecursionTest {
         int [] list = {5,10,12,15,20};
 
         for (int n : list) {
-            AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
+
             long [] memo = new long[n+1]; // Cache para resultados ya calculados
             long t1 = System.nanoTime();
+            //init array en -1 this is IMPORTANT
+            for (int i = 0; i < n+1; i++) {
+                memo[i] = -1;
+            }
+            AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
             long result = Recursion.fibMemoArray(n, memo ,counter);
             long t2 = System.nanoTime();
 
