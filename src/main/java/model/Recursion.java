@@ -25,24 +25,27 @@ public class Recursion {
     }
 
     /*Fibonacci con HaspMap */
-    public static long fibMemo(int n, Map<Integer, Long> memo){
+    public static long fibMemo(int n, Map<Integer, Long> memo, AtomicInteger counter){
+        counter.incrementAndGet();
         if (n<=1) return n;
 
         if (memo.containsKey(n)) return memo.get(n);//Cache
 
-        long result = fibMemo(n-1, memo) + fibMemo(n-2, memo);
+        long result = fibMemo(n-1, memo, counter) + fibMemo(n-2, memo, counter);
         memo.put(n, result);//Guardar en cache
         return result;
     }
 
     /*Fibonacci con memoriazacion usando arreglos*/
-    public static long fibMemoArray(int n, long[] memo){
+    public static long fibMemoArray(int n, long[] memo, AtomicInteger counter){
+
+        counter.incrementAndGet();
         if (n<=1) return n;
 
         if (memo[n] != -1) return memo[n]; //Si tiene un result almacendo
 
 
-        memo[n] = fibMemoArray(n-1, memo) + fibMemoArray(n-2, memo);
+        memo[n] = fibMemoArray(n-1, memo, counter) + fibMemoArray(n-2, memo, counter);
         return memo[n];
     }
 
