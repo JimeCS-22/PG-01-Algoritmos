@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Recursion {
 
@@ -13,11 +14,13 @@ public class Recursion {
 
 
 
-    public static long fibonacci(int n){
+    public static long fibonacci(int n, AtomicInteger counter){
+
+        counter.incrementAndGet();//La idea es contar cada llamada recursiva
 
         if (n<= 1) return n;
 
-        return fibonacci(n-1) + fibonacci(n-2);
+        return fibonacci(n-1, counter) + fibonacci(n-2, counter);
 
     }
 
@@ -55,6 +58,8 @@ public class Recursion {
         System.out.println("Abriendo la muñeca número: "+ n);
         matryoshka(n-1);
     }
+
+
 
 
 

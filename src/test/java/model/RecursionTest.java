@@ -2,6 +2,8 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static model.Recursion.fibonacci;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,13 +25,20 @@ class RecursionTest {
     @Test
     void fibonacciTest(){
 
-        int n = 10;
+        int [] list = {5,10,12,15,20};
 
-        long t1 = System.nanoTime();
-        long result = fibonacci(n);
-        long t2 = System.nanoTime();
+        for (int n : list) {
+            AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
+            long t1 = System.nanoTime();
+            long result = fibonacci(n, counter);
+            long t2 = System.nanoTime();
 
-        System.out.println("El fibonacci de: " + n + " es " + result + "\n T(n): " + util.Utility.format(t2-t1) + " ns ");
+            System.out.println("El fibonacci de " + n + " es " + util.Utility.format(result) +
+                            "\nTotal recursive calls: " + util.Utility.format(counter.get()) +
+                             "\nT(n): " + util.Utility.format(t2-t1) + " ns \n"
+
+            );
+        }
     }
 
     @Test
