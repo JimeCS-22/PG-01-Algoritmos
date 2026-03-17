@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -33,7 +34,7 @@ class RecursionTest {
     @Test
     void fibonacciTest(){
 
-        int [] list = {5,10,12,15,20};
+        int [] list = {5,10,12,15,20, 30};
 
         for (int n : list) {
             AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
@@ -90,10 +91,25 @@ class RecursionTest {
         }
     }
 
-
     @Test
-    void matryoshka(){
-        Recursion.matryoshka(5);
+    void arraySum(){
+        int [] a = {3, 5, 2, 7, 1};
+
+        for (int n : a){
+
+            AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
+            long [] memo = new long[n+1]; // Cache para resultados ya calculados
+            long t1 = System.nanoTime();
+            int resultado = Recursion.arraySum(a, 0, counter);
+            long t2 = System.nanoTime();
+
+            // Usamos Arrays.toString(a) para ver el contenido
+            System.out.println("El resultado de " + Arrays.toString(a) + " es: " + resultado +
+                     "\nTotal recursive calls: " + util.Utility.format(counter.get()) +
+                    "\nT(n): " + util.Utility.format(t2-t1) + " ns \n");
+
+        }
+
     }
 
 

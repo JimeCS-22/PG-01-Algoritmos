@@ -64,6 +64,15 @@ public class Recursion {
         matryoshka(n-1);
     }
 
+    /*Ejercicio que el profe nos puso para practicar*/
+    public static int arraySum(int [] a, int incdex, AtomicInteger counter){
+        counter.incrementAndGet();
+
+        if (incdex >= a.length) return 0;
+
+        return a[incdex] + arraySum(a, incdex+1, counter);
+    }
+
 
 
 
