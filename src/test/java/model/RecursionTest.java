@@ -32,5 +32,10 @@ class RecursionTest {
         System.out.println("El fibonacci de: " + n + " es " + result + "\n T(n): " + util.Utility.format(t2-t1) + " ns ");
     }
 
+    @Test
+    void matryoshka(){
+        Recursion.matryoshka(5);
+    }
+
 
 }
