@@ -6,10 +6,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Recursion {
 
-    public static long factorial(int n){
+    public static long factorial(int n, AtomicInteger counter){
+
+        counter.incrementAndGet();
 
         if (n==0) return 1;
-        return n * factorial(n-1);
+        return n * factorial(n-1, counter);
     }
 
 
