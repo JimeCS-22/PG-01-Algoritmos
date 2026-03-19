@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -23,9 +24,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ScrollPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="828.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="828.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <top>
         <VBox prefHeight="134.0" prefWidth="694.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
             <children>
@@ -56,7 +56,7 @@
         </VBox>
     </top>
     <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" styleClass="main-tabs" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane fx:id="mainTabs" prefHeight="200.0" prefWidth="200.0" styleClass="main-tabs" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
                 <Tab text="Factorial">
                     <content>
@@ -197,24 +197,38 @@
                 <Tab text="Grafico">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <BarChart layoutX="14.0" layoutY="47.0" prefHeight="400.0" prefWidth="289.0" title="Tiempos de ejecución">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
-                        <BarChart layoutX="341.0" layoutY="47.0" prefHeight="400.0" prefWidth="319.0" title="LLamadas recursivas">
-                          <xAxis>
-                            <CategoryAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                        </BarChart>
-                     </children></AnchorPane>
+                            <children>
+                                <SplitPane dividerPositions="0.5" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <items>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                            <children>
+                                                <BarChart fx:id="chartTimes" layoutY="50.0" prefHeight="400.0" prefWidth="415.0" title="Grafico de tiempos de ejecución T(n)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                                    <xAxis>
+                                                        <CategoryAxis label="n" side="BOTTOM" />
+                                                    </xAxis>
+                                                    <yAxis>
+                                                        <NumberAxis label="Tiempos (ns)" side="LEFT" />
+                                                    </yAxis>
+                                                </BarChart>
+                                                <Label layoutX="20.0" layoutY="20.0" styleClass="panel-title" text="Tiempo de ejecución T(n)" />
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                            <children>
+                                                <BarChart fx:id="chartCalls" layoutY="50.0" prefHeight="400.0" prefWidth="406.0" title="Grafico de llamadas recursivas" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                                    <xAxis>
+                                                        <CategoryAxis label="n" side="BOTTOM" styleClass="bar" />
+                                                    </xAxis>
+                                                    <yAxis>
+                                                        <NumberAxis label="Número de llamadas" side="LEFT" />
+                                                    </yAxis>
+                                                </BarChart>
+                                                <Label layoutX="20.0" layoutY="20.0" styleClass="panel-title" text="Número de llamadas recursivas" />
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children></AnchorPane>
                     </content>
                 </Tab>
             <Tab text="Fact-Fib">

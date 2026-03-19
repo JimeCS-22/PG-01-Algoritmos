@@ -6,14 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import model.Recursion;
 import model.RecursionEngine;
 import model.TreePainter;
 
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainController implements Initializable {
@@ -64,12 +65,19 @@ public class MainController implements Initializable {
     private ToggleButton btnFibSinMemo;
     @FXML
     private ToggleButton btnFibMemo;
+    @FXML
+    private BarChart chartTimes;
+    @FXML
+    private BarChart chartCalls;
+    @FXML
+    private TabPane mainTabs;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupFactTab();
         setupFibTab();
+        setupGraficoTab();
     }
 
     private void setupFactTab() {
@@ -181,6 +189,118 @@ public class MainController implements Initializable {
         lblFibComplexity.setText("O(2^n) ≈ O(2^" + n + ") llamadas");
 
         painter.paint(canvasTreeFibo, lastRoot, fibBFS.size(), fibBFS);
+    }
+
+    // Grafico (Benchmarking)
+    private void setupGraficoTab() {
+        if (mainTabs == null) return;
+
+        mainTabs.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            if (newTab == null) return;
+
+            if ("Grafico".equalsIgnoreCase(newTab.getText())) {
+                cargarGraficosBenchmark();
+            }
+        });
+    }
+
+    private void cargarGraficosBenchmark() {
+        if (chartTimes == null || chartCalls == null) return;
+
+        chartTimes.setAnimated(false);
+        chartCalls.setAnimated(false);
+
+        chartTimes.getData().clear();
+        chartCalls.getData().clear();
+
+        List<Integer> ns = Arrays.asList(5, 10, 12, 15, 20);
+
+        XYChart.Series<String, Number> sTimeArray = new XYChart.Series<>();
+        sTimeArray.setName("Fib Memo Array");
+        XYChart.Series<String, Number> sTimeHash = new XYChart.Series<>();
+        sTimeHash.setName("Fib Memo HashMap");
+        XYChart.Series<String, Number> sTimeRec = new XYChart.Series<>();
+        sTimeRec.setName("Fib Recursive");
+
+        XYChart.Series<String, Number> sCallsArray = new XYChart.Series<>();
+        sCallsArray.setName("Fib Memo Array");
+        XYChart.Series<String, Number> sCallsHash = new XYChart.Series<>();
+        sCallsHash.setName("Fib Memo HashMap");
+        XYChart.Series<String, Number> sCallsRec = new XYChart.Series<>();
+        sCallsRec.setName("Fib Recursive");
+
+        for (int n : ns) {
+            BenchResult rArray = benchPromedio(n, Variant.ARRAY, 10);
+            BenchResult rHash  = benchPromedio(n, Variant.HASHMAP, 10);
+            BenchResult rRec   = benchPromedio(n, Variant.RECURSIVE, 3);
+
+            String cat = String.valueOf(n);
+
+            sTimeArray.getData().add(new XYChart.Data<>(cat, rArray.timeNs));
+            sTimeHash.getData().add(new XYChart.Data<>(cat, rHash.timeNs));
+            sTimeRec.getData().add(new XYChart.Data<>(cat, rRec.timeNs));
+
+            sCallsArray.getData().add(new XYChart.Data<>(cat, rArray.calls));
+            sCallsHash.getData().add(new XYChart.Data<>(cat, rHash.calls));
+            sCallsRec.getData().add(new XYChart.Data<>(cat, rRec.calls));
+        }
+
+        chartTimes.getData().addAll(sTimeArray, sTimeHash, sTimeRec);
+        chartCalls.getData().addAll(sCallsArray, sCallsHash, sCallsRec);
+    }
+
+    private static class BenchResult {
+        final long value;
+        final int calls;
+        final long timeNs;
+
+        BenchResult(long value, int calls, long timeNs) {
+            this.value = value;
+            this.calls = calls;
+            this.timeNs = timeNs;
+        }
+    }
+
+    private enum Variant { RECURSIVE, HASHMAP, ARRAY }
+
+    private BenchResult benchPromedio(int n, Variant variant, int reps) {
+        runOnce(n, variant); // warm-up
+
+        long total = 0;
+        int calls = 0;
+        long value = 0;
+
+        for (int i = 0; i < reps; i++) {
+            BenchResult r = runOnce(n, variant);
+            total += r.timeNs;
+            calls = r.calls;
+            value = r.value;
+        }
+
+        return new BenchResult(value, calls, total / reps);
+    }
+
+    private BenchResult runOnce(int n, Variant variant) {
+        AtomicInteger counter = new AtomicInteger(0);
+        long t1 = System.nanoTime();
+
+        long value;
+        switch (variant) {
+            case RECURSIVE -> value = Recursion.fibonacci(n, counter);
+            case HASHMAP -> {
+                Map<Integer, Long> memo = new HashMap<>();
+                value = Recursion.fibMemo(n, memo, counter);
+            }
+            case ARRAY -> {
+                long[] memo = new long[n + 1];
+                Arrays.fill(memo, -1);
+                value = Recursion.fibMemoArray(n, memo, counter);
+            }
+            default -> throw new IllegalArgumentException("Variant no soportada: " + variant);
+        }
+
+        long t2 = System.nanoTime();
+        return new BenchResult(value, counter.get(), t2 - t1);
     }
 
 
