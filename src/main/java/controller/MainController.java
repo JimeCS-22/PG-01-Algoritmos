@@ -28,7 +28,7 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Label lblFactCalls;
     @javafx.fxml.FXML
-    private ListView listSteps;
+    private ListView<String>listSteps;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
