@@ -102,5 +102,12 @@ public class RecursionEngine {
         return sb.toString();
     }
 
-
+    //Creamos los getteres
+    public List<Step> getSteps(){return steps;}
+    public CallNode getTreeRoot(){return treeRoot;}
+    public int getCallCount(){return callCount;}
+    public Map<Integer, Long> getMemo(){return memo;}
 }
+
+
+
