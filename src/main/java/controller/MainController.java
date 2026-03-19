@@ -1,5 +1,8 @@
 package controller;
 
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -63,6 +66,13 @@ public class MainController implements Initializable {
         lblFactResult.setText(util.Utility.format(result));
         lblFactCalls.setText(String.valueOf(counter.get()));
 
+        //llenamos la lista  de pasos
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (int i = 0; i < n; i++) {
+            items.add(String.format("[%02d]", i+1));
+        }
+        listSteps.setItems(items); //setteamos la lista de pasos recursivos
+        lblComplexity.setText("O(n) = O(" + n + ") llamadas");
     }
 
 }
