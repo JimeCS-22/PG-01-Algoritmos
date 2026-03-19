@@ -47,9 +47,16 @@ public class MainController implements Initializable {
     }
 
     private void resetFactTab() {
+
+        lblFactResult.setText("-");
+        lblFactCalls.setText("-");
+        lblComplexity.setText("-");
+        listSteps.getItems().clear();
     }
 
     private void runFactorial() {
+
+
     }
 
 }
