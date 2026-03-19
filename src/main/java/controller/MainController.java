@@ -76,14 +76,21 @@ public class MainController implements Initializable {
         lblFactResult.setText(util.Utility.format(result));
         lblFactCalls.setText(String.valueOf(counter));*/
 
+        engine.computeFactorial(n);
+        lastRoot = engine.getTreeRoot();
+
+
 
 
         //Llenamos la lista de pasos
         ObservableList<String> items = FXCollections.observableArrayList();
         for(int i = 0; i < n; i++){
-            items.add(String.format("[%02d]", i+1));
+            RecursionEngine.Step step = engine.getSteps().get(i);
+            items.add(String.format("[%02d] %s", i+1 , step.description));
         }
         listSteps.setItems(items);//setteamos la lista de pasos recursivos
+        lblFactResult.setText(util.Utility.format(engine.getTreeRoot().result));
+        lblFactCalls.setText(String.valueOf(engine.getCallCount()));
         lblComplexity.setText("O(n) = O(" + n + ") llamadas");
     }
 }
