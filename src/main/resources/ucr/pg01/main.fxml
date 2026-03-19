@@ -77,7 +77,7 @@
                                         <HBox prefHeight="35.0" prefWidth="316.0">
                                             <children>
                                                 <Button fx:id="btnFactCalc" mnemonicParsing="false" styleClass="btn-primary" text="Calcular" />
-                                                <Button fx:id="btnaFactResert" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
+                                                <Button fx:id="btnFactReset" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
                                             </children>
                                         </HBox>
                                         <GridPane>

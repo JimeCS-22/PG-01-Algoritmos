@@ -20,8 +20,6 @@ public class MainController implements Initializable {
     @javafx.fxml.FXML
     private Slider sliderFactN;
     @javafx.fxml.FXML
-    private Button btnaFactResert;
-    @javafx.fxml.FXML
     private Label lblFactResult;
     @javafx.fxml.FXML
     private Label lblComplexity;
@@ -29,9 +27,29 @@ public class MainController implements Initializable {
     private Label lblFactCalls;
     @javafx.fxml.FXML
     private ListView<String>listSteps;
+    @javafx.fxml.FXML
+    private Button btnFactReset;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupFactTab();
 
     }
+
+    private void setupFactTab() {
+        sliderFactN.setMin(1); sliderFactN.setMax(12); sliderFactN.setValue(5);
+        sliderFactN.setMajorTickUnit(1); sliderFactN.setSnapToTicks(true);
+        sliderFactN.valueProperty().addListener((observable, oldValue, newValue) -> {
+            lblFactN.setText(String.valueOf(newValue.intValue()));
+        });
+        btnFactCalc.setOnAction(event -> runFactorial());
+        btnFactReset.setOnAction(e -> resetFactTab());
+    }
+
+    private void resetFactTab() {
+    }
+
+    private void runFactorial() {
+    }
+
 }
