@@ -9,6 +9,7 @@ import javafx.scene.control.Slider;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainController implements Initializable {
     @javafx.fxml.FXML
@@ -56,6 +57,11 @@ public class MainController implements Initializable {
 
     private void runFactorial() {
 
+        int n = (int) sliderFactN.getValue();
+        AtomicInteger counter = new AtomicInteger(0);
+        long result = model.Recursion.factorial(n, counter);
+        lblFactResult.setText(util.Utility.format(result));
+        lblFactCalls.setText(String.valueOf(counter.get()));
 
     }
 
