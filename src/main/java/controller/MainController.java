@@ -2,6 +2,8 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -43,11 +45,30 @@ public class MainController implements Initializable {
     private final TreePainter painter = new TreePainter();
     private RecursionEngine.CallNode lastRoot;
     private List<RecursionEngine.CallNode> factBFS;
+    @javafx.fxml.FXML
+    private Label lblFibComplexity;
+    @javafx.fxml.FXML
+    private Label lblFibResult;
+    @javafx.fxml.FXML
+    private Canvas canvasTreeFibo;
+    @javafx.fxml.FXML
+    private Slider sliderFibN;
+    @javafx.fxml.FXML
+    private Label lblFibCalls;
+    @FXML
+    private ListView<String> listSeptsFib;
+    @javafx.fxml.FXML
+    private Label lblFibN;
+    @javafx.fxml.FXML
+    private Button btnFibReset;
+    @javafx.fxml.FXML
+    private Button btnFibCalc;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupFactTab();
+        setupFibTab();
     }
 
     private void setupFactTab() {
@@ -92,4 +113,51 @@ public class MainController implements Initializable {
         //dibujamos el árbol de llamadas en el canva
         painter.paint(canvasTree, lastRoot, factBFS.size(), factBFS);
     }
+
+    private void setupFibTab(){
+
+        sliderFibN.setMin(1);
+        sliderFibN.setMax(15);
+        sliderFibN.setValue(5);
+
+        sliderFibN.setMajorTickUnit(1);
+        sliderFibN.setSnapToTicks(true);
+
+        sliderFibN.valueProperty().addListener((observable, oldValue, newValue) -> {
+            lblFibN.setText("n = " + newValue.intValue());
+        });
+        btnFibCalc.setOnAction(event -> runFibonacci());
+        btnFibReset.setOnAction(e -> resetFibTab());
+    }
+
+    private void resetFibTab() {
+        lblFibResult.setText("-");
+        lblFibCalls.setText("-");
+        lblFibComplexity.setText("-");
+        listSeptsFib.getItems().clear();
+    }
+
+    private void runFibonacci() {
+        int n = (int) sliderFibN.getValue();
+
+        engine.computeFibonacci(n);
+        lastRoot = engine.getTreeRoot();
+        List<RecursionEngine.CallNode> fibBFS = TreePainter.collectBFS(lastRoot);
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+        for (int i = 0; i < engine.getSteps().size(); i++) {
+            RecursionEngine.Step step = engine.getSteps().get(i);
+            items.add(String.format("[%02d] %s", i + 1, step.description));
+        }
+        listSeptsFib.setItems(items);
+
+        lblFibResult.setText(util.Utility.format(engine.getTreeRoot().result));
+        lblFibCalls.setText(String.valueOf(engine.getCallCount()));
+
+        lblFibComplexity.setText("O(2^n) ≈ O(2^" + n + ") llamadas");
+
+        painter.paint(canvasTreeFibo, lastRoot, fibBFS.size(), fibBFS);
+    }
+
+
 }

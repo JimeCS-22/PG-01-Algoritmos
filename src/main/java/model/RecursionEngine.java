@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import static model.Recursion.fibonacci;
+
 /**
  * Motor de recursividad: implementa factorial y Fibonacci
  * con captura del árbol de llamadas y memorización.
@@ -104,6 +106,72 @@ public class RecursionEngine {
     public CallNode getTreeRoot(){return treeRoot;}
     public int getCallCount(){return callCount;}
     public Map<Integer, Long> getMemo(){return Collections.unmodifiableMap(memo);}
+
+    public long computeFibonacci(int n){
+
+        reset();
+        treeRoot = new CallNode("fib("+n+")", n, 0);
+        long result = fibonacci(n, treeRoot, 0);
+
+        steps.add(new Step("Resultado final", "fib( "+n+" ) = "+ result,
+                result, false, callCount));
+
+        return result;
+    }
+
+    private long fibonacci(int n, CallNode parent, int depth){
+
+        callCount++;
+        String label = "fib(" + n + ")";
+        steps.add(new Step("Llamada No.: "+callCount+": "+label
+                , buildFibExp(n), -1, false, callCount));
+        //Caso base
+        if(n<= 1){
+            parent.result = n;
+
+            steps.add(new Step("Caso base: " + label + " = " + n,
+                    label + " = " + n, n, false, callCount));
+
+            return n;
+        }
+
+        //Memo
+        if (memo.containsKey(n)) {
+            parent.result = memo.get(n);
+            parent.fromMemo = true;
+
+            steps.add(new Step("Resultado de cache: " + label + " = " + memo.get(n),
+                    label + " = " + memo.get(n), memo.get(n), true, callCount));
+
+            return parent.result;
+        }
+
+        //Llamadas recursivas
+        CallNode left = new CallNode("fib(" + (n - 1) + ")", n - 1, depth + 1);
+        CallNode right = new CallNode("fib(" + (n - 2) + ")", n - 2, depth + 1);
+
+        parent.children.add(left);
+        parent.children.add(right);
+
+        long a = fibonacci(n - 1, left, depth + 1);
+        long b = fibonacci(n - 2, right, depth + 1);
+
+        long result = a + b;
+        parent.result = result;
+
+        // guardar en memo
+        memo.put(n, result);
+
+        steps.add(new Step("Retorno: " + label + " = " + a + " + " + b + " = " + result,
+                label + " = " + result, result, false, callCount));
+
+        return result;
+    }
+
+    private String buildFibExp(int n) {
+        if (n <= 1) return String.valueOf(n);
+        return "fib(" + (n - 1) + ") + fib(" + (n - 2) + ")";
+    }
 }
 
 
