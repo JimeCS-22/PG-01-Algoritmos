@@ -112,5 +112,27 @@ class RecursionTest {
 
     }
 
+    @Test
+    void sumDigit() {
+        int[] a = {20, 100, 1000, 5000, 10000};
+
+        for (int n : a) {
+            long t1 = System.nanoTime();
+
+            try {
+                int result = Recursion.sumDigit(n);
+                long t2 = System.nanoTime();
+
+                System.out.println("sumDigits(" + n + ") = " + result +
+                        "\nT(n): " + util.Utility.format(t2 - t1) + " ns\n");
+
+            } catch (StackOverflowError e) {
+                long t2 = System.nanoTime();
+                System.out.println("sumDigits(" + n + ") => StackOverflowError" +
+                        "\nT(n): " + util.Utility.format(t2 - t1) + " ns\n");
+            }
+        }
+
+    }
 
 }

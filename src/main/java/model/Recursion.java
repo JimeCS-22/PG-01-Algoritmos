@@ -1,6 +1,5 @@
 package model;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -71,6 +70,12 @@ public class Recursion {
         if (incdex >= a.length) return 0;
 
         return a[incdex] + arraySum(a, incdex+1, counter);
+    }
+
+    public static Integer sumDigit(int n){
+            n = Math.abs(n);
+            if (n < 10) return n;
+            return (n % 10) + sumDigit(n / 10);
     }
 
 
