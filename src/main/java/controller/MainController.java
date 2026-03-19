@@ -1,15 +1,11 @@
 package controller;
 
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
-import model.Recursion;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,19 +56,13 @@ public class MainController implements Initializable {
     }
 
     private void runFactorial() {
+
         int n = (int) sliderFactN.getValue();
         AtomicInteger counter = new AtomicInteger(0);
-        long result = Recursion.factorial(n, counter);
+        long result = model.Recursion.factorial(n, counter);
         lblFactResult.setText(util.Utility.format(result));
-        lblFactCalls.setText(String.valueOf(counter));
+        lblFactCalls.setText(String.valueOf(counter.get()));
 
-        //llenamos la lista  de pasos
-        ObservableList<String> items = FXCollections.observableArrayList();
-        for (int i = 0; i < n; i++) {
-            items.add(String.format("[%02d]", i+1));
-        }
-        listSteps.setItems(items); //setteamos la lista de pasos recursivos
-        lblComplexity.setText("O(n) = O(" + n + ") llamadas");
     }
 
 }
