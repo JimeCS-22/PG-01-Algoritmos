@@ -172,6 +172,55 @@ public class RecursionEngine {
         if (n <= 1) return String.valueOf(n);
         return "fib(" + (n - 1) + ") + fib(" + (n - 2) + ")";
     }
+
+    public long computeFibonacciNoMemo(int n){
+        reset();
+        treeRoot = new CallNode("fib("+n+")", n, 0);
+
+        long result = fibonacciNoMemo(n, treeRoot, 0);
+
+        steps.add(new Step("Resultado final", "fib(" + n + ") = " + result,
+                result, false, callCount));
+
+        return result;
+    }
+
+    private long fibonacciNoMemo(int n, CallNode parent, int depth){
+
+        callCount++;
+        String label = "fib(" + n + ")";
+
+        steps.add(new Step("Llamada No.: " + callCount + ": " + label,
+                buildFibExp(n), -1, false, callCount));
+
+        // Caso base
+        if(n <= 1){
+            parent.result = n;
+
+            steps.add(new Step("Caso base: " + label + " = " + n,
+                    label + " = " + n, n, false, callCount));
+
+            return n;
+        }
+
+
+        CallNode left = new CallNode("fib(" + (n - 1) + ")", n - 1, depth + 1);
+        CallNode right = new CallNode("fib(" + (n - 2) + ")", n - 2, depth + 1);
+
+        parent.children.add(left);
+        parent.children.add(right);
+
+        long a = fibonacciNoMemo(n - 1, left, depth + 1);
+        long b = fibonacciNoMemo(n - 2, right, depth + 1);
+
+        long result = a + b;
+        parent.result = result;
+
+        steps.add(new Step("Retorno: " + label + " = " + a + " + " + b + " = " + result,
+                label + " = " + result, result, false, callCount));
+
+        return result;
+    }
 }
 
 

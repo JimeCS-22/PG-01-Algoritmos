@@ -23,7 +23,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="694.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ScrollPane?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="828.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <top>
         <VBox prefHeight="134.0" prefWidth="694.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
             <children>
@@ -129,20 +131,31 @@
                                         <VBox layoutX="8.0" layoutY="8.0" prefHeight="402.0" prefWidth="322.0">
                                             <children>
                                                 <Label styleClass="panel-title" text="Arbol de llamadas recursivas " />
-                                                <Canvas fx:id="canvasTreeFibo" height="380.0" styleClass="tree-canvas" width="284.0" />
-                                            </children>
+                                                <ScrollPane prefWidth="300" prefHeight="400">
+                                                    <content>
+                                                        <Canvas fx:id="canvasTreeFibo" width="800" height="800"/>
+                                                    </content>
+                                                </ScrollPane>                                            </children>
                                         </VBox>
                                     </children>
                                 </AnchorPane>
                                 <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="406.0">
                                     <children>
-                                        <VBox layoutX="11.0" layoutY="14.0" prefHeight="407.0" prefWidth="319.0">
+                                        <VBox layoutX="24.0" prefHeight="504.0" prefWidth="319.0">
                                             <children>
                                                 <Label text="Parametros" />
-                                                <HBox prefHeight="44.0" prefWidth="319.0">
+
+                                                <HBox spacing="10">
                                                     <children>
-                                                        <Label styleClass="param-label" text="n=" />
-                                                        <Label fx:id="lblFibN" styleClass="value-badge" text=" 5" />
+                                                        <ToggleButton fx:id="btnFibSinMemo" text="Sin memorización"/>
+                                                        <ToggleButton fx:id="btnFibMemo" text="Con memorización"/>
+                                                    </children>
+                                                </HBox>
+
+                                                <HBox>
+                                                    <children>
+                                                        <Label text="n=" />
+                                                        <Label fx:id="lblFibN" />
                                                     </children>
                                                 </HBox>
                                                 <Slider fx:id="sliderFibN" showTickLabels="true" />
@@ -183,7 +196,7 @@
                                                     </children>
                                                 </GridPane>
                                                 <Label styleClass="section-label" text="Pasos de ejecución" />
-                                                <ListView fx:id="listSeptsFib" prefHeight="200.0" prefWidth="200.0" styleClass="steps-list" />
+                                                <ListView fx:id="listSeptsFib" prefHeight="184.0" prefWidth="319.0" styleClass="steps-list" />
                                             </children>
                                         </VBox>
                                     </children>

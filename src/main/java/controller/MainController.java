@@ -6,10 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import model.Recursion;
 import model.RecursionEngine;
 import model.TreePainter;
@@ -63,6 +60,10 @@ public class MainController implements Initializable {
     private Button btnFibReset;
     @javafx.fxml.FXML
     private Button btnFibCalc;
+    @FXML
+    private ToggleButton btnFibSinMemo;
+    @FXML
+    private ToggleButton btnFibMemo;
 
 
     @Override
@@ -86,6 +87,8 @@ public class MainController implements Initializable {
         lblFactCalls.setText("-");
         lblComplexity.setText("-");
         listSteps.getItems().clear();
+
+
     }
 
     private void runFactorial() {
@@ -128,6 +131,12 @@ public class MainController implements Initializable {
         });
         btnFibCalc.setOnAction(event -> runFibonacci());
         btnFibReset.setOnAction(e -> resetFibTab());
+
+        ToggleGroup group = new ToggleGroup();
+        btnFibMemo.setToggleGroup(group);
+        btnFibSinMemo.setToggleGroup(group);
+        //Por defecto
+        btnFibMemo.setSelected(true);
     }
 
     private void resetFibTab() {
@@ -140,7 +149,13 @@ public class MainController implements Initializable {
     private void runFibonacci() {
         int n = (int) sliderFibN.getValue();
 
-        engine.computeFibonacci(n);
+        boolean usarMemo = btnFibMemo.isSelected();
+
+        if (usarMemo) {
+            engine.computeFibonacci(n); // con memo
+        } else {
+            engine.computeFibonacciNoMemo(n); // sin memo
+        }
         lastRoot = engine.getTreeRoot();
         List<RecursionEngine.CallNode> fibBFS = TreePainter.collectBFS(lastRoot);
 
