@@ -72,6 +72,7 @@ public class Recursion {
         return a[incdex] + arraySum(a, incdex+1, counter);
     }
 
+    //Suma de digitos con valor n
     public static Integer sumDigit(int n){
             n = Math.abs(n);
             if (n < 10) return n;
