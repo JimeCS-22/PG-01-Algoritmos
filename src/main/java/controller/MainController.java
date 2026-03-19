@@ -55,11 +55,11 @@ public class MainController implements Initializable {
     @FXML
     private ListView<String> listSeptsFib;
     @javafx.fxml.FXML
-    private Label lblFibN;
-    @javafx.fxml.FXML
     private Button btnFibReset;
     @javafx.fxml.FXML
     private Button btnFibCalc;
+    @FXML
+    private Label lblFibN;
     @FXML
     private ToggleButton btnFibSinMemo;
     @FXML
@@ -127,7 +127,7 @@ public class MainController implements Initializable {
         sliderFibN.setSnapToTicks(true);
 
         sliderFibN.valueProperty().addListener((observable, oldValue, newValue) -> {
-            lblFibN.setText("n = " + newValue.intValue());
+            lblFibN.setText(String.valueOf(newValue.intValue()));
         });
         btnFibCalc.setOnAction(event -> runFibonacci());
         btnFibReset.setOnAction(e -> resetFibTab());
@@ -135,8 +135,17 @@ public class MainController implements Initializable {
         ToggleGroup group = new ToggleGroup();
         btnFibMemo.setToggleGroup(group);
         btnFibSinMemo.setToggleGroup(group);
-        //Por defecto
         btnFibMemo.setSelected(true);
+
+        btnFibMemo.setOnAction(e -> {
+            btnFibMemo.setSelected(true);
+            btnFibSinMemo.setSelected(false);
+        });
+
+        btnFibSinMemo.setOnAction(e -> {
+            btnFibSinMemo.setSelected(true);
+            btnFibMemo.setSelected(false);
+        });
     }
 
     private void resetFibTab() {

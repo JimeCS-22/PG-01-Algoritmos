@@ -14,7 +14,7 @@ class RecursionTest {
 
     @Test
     void factorialTest() {
-        int [] list = {5,10,12,15,20};
+        int [] list = {6,7,8,9,10,11,12};
 
         for (int n : list) {
             AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
@@ -34,7 +34,7 @@ class RecursionTest {
     @Test
     void fibonacciTest(){
 
-        int [] list = {5,10,12,15,20, 30};
+        int [] list = {5,6,7,8,9,10,11,12,13,14,15};
 
         for (int n : list) {
             AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
@@ -53,7 +53,7 @@ class RecursionTest {
     @Test
     void fibMemoTest(){
 
-        int [] list = {5,10,12,15,20};
+        int [] list = {20,25,50};
 
         for (int n : list) {
             AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
@@ -74,7 +74,7 @@ class RecursionTest {
     @Test
     void fibMemoArrayTest(){
 
-        int [] list = {5,10,12,15,20};
+        int [] list = {20,25,50};
 
         for (int n : list) {
             AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas

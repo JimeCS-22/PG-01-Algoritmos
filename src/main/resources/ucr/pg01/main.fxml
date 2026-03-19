@@ -13,6 +13,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -22,9 +23,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ScrollPane?>
+
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="828.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <top>
         <VBox prefHeight="134.0" prefWidth="694.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
@@ -65,8 +65,11 @@
                                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="panel">
                                     <children>
                                         <Label styleClass="panel-title" text="Árbol de llamadas recursivas" />
-                                        <Canvas fx:id="canvasTree" height="370.0" styleClass="tree-canvas" width="273.0" />
-                                    </children>
+                                        <ScrollPane prefHeight="473.0" prefWidth="345.0">
+                                            <content>
+                                                <Canvas fx:id="canvasTree" height="800.0" width="1200.0" />
+                                            </content>
+                                        </ScrollPane>                                    </children>
                                 </VBox>
                                 <VBox prefHeight="281.0" prefWidth="305.0" spacing="10.0" styleClass="panel">
                                     <children>
@@ -123,87 +126,74 @@
                     </content>
                 </Tab>
                 <Tab text="Fibonacci">
-                    <content>
-                        <SplitPane dividerPositions="0.4265552995391705" prefHeight="160.0" prefWidth="200.0">
-                            <items>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="345.0">
-                                    <children>
-                                        <VBox layoutX="8.0" layoutY="8.0" prefHeight="402.0" prefWidth="322.0">
-                                            <children>
-                                                <Label styleClass="panel-title" text="Arbol de llamadas recursivas " />
-                                                <ScrollPane prefWidth="300" prefHeight="400">
-                                                    <content>
-                                                        <Canvas fx:id="canvasTreeFibo" width="800" height="800"/>
-                                                    </content>
-                                                </ScrollPane>                                            </children>
-                                        </VBox>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="473.0" prefWidth="406.0">
-                                    <children>
-                                        <VBox layoutX="24.0" prefHeight="504.0" prefWidth="319.0">
-                                            <children>
-                                                <Label text="Parametros" />
-
-                                                <HBox spacing="10">
-                                                    <children>
-                                                        <ToggleButton fx:id="btnFibSinMemo" text="Sin memorización"/>
-                                                        <ToggleButton fx:id="btnFibMemo" text="Con memorización"/>
-                                                    </children>
-                                                </HBox>
-
-                                                <HBox>
-                                                    <children>
-                                                        <Label text="n=" />
-                                                        <Label fx:id="lblFibN" />
-                                                    </children>
-                                                </HBox>
-                                                <Slider fx:id="sliderFibN" showTickLabels="true" />
-                                                <HBox prefHeight="35.0" prefWidth="319.0">
-                                                    <children>
-                                                        <Button fx:id="btnFibCalc" mnemonicParsing="false" styleClass="btn-primary" text="Calcular" />
-                                                        <Button fx:id="btnFibReset" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
-                                                    </children>
-                                                </HBox>
-                                                <GridPane>
-                                                    <columnConstraints>
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                    </columnConstraints>
-                                                    <rowConstraints>
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                    </rowConstraints>
-                                                    <children>
-                                                        <VBox prefHeight="200.0" prefWidth="100.0">
-                                                            <children>
-                                                                <Label styleClass="stat-label" text="Resultado" />
-                                                                <Label fx:id="lblFibResult" styleClass="stat-value-sm" text="--" />
-                                                            </children>
-                                                        </VBox>
-                                                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-                                                            <children>
-                                                                <Label styleClass="stat-label" text="Complejidad actual" />
-                                                                <Label fx:id="lblFibComplexity" styleClass="stat-value-sm" text="--" />
-                                                            </children>
-                                                        </VBox>
-                                                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-                                                            <children>
-                                                                <Label styleClass="stat-label" text="Llamadas" />
-                                                                <Label fx:id="lblFibCalls" styleClass="stat-value-sm" text="--" />
-                                                            </children>
-                                                        </VBox>
-                                                    </children>
-                                                </GridPane>
-                                                <Label styleClass="section-label" text="Pasos de ejecución" />
-                                                <ListView fx:id="listSeptsFib" prefHeight="184.0" prefWidth="319.0" styleClass="steps-list" />
-                                            </children>
-                                        </VBox>
-                                    </children>
-                                </AnchorPane>
-                            </items>
-                        </SplitPane>
-                    </content></Tab>
+               <content>
+                  <SplitPane dividerPositions="0.4582373271889401" prefHeight="200.0" prefWidth="200.0">
+                     <items>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="panel">
+                           <children>
+                              <Label styleClass="panel-title" text="Árbol de llamadas recursivas" />
+                               <ScrollPane prefHeight="473.0" prefWidth="345.0">
+                                   <content>
+                                       <Canvas fx:id="canvasTreeFibo" height="800.0" width="1200.0" />
+                                   </content>
+                               </ScrollPane>                           </children>
+                        </VBox>
+                        <VBox prefHeight="281.0" prefWidth="305.0" spacing="10.0" styleClass="panel">
+                           <children>
+                              <Label styleClass="action-label" text="Parámetros" />
+                              <HBox prefHeight="28.0" prefWidth="316.0">
+                                 <children>
+                                    <Label styleClass="param-label" text="n = " />
+                                    <Label fx:id="lblFibN" styleClass="value-badge" text="5" />
+                                 </children>
+                              </HBox>
+                              <Slider fx:id="sliderFibN" prefHeight="14.0" prefWidth="315.0" showTickLabels="true" />
+                              <HBox prefHeight="35.0" prefWidth="316.0">
+                                 <children>
+                                    <Button fx:id="btnFibCalc" mnemonicParsing="false" styleClass="btn-primary" text="Calcular" />
+                                    <Button fx:id="btnFibReset" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
+                                    <ToggleButton fx:id="btnFibMemo" mnemonicParsing="false" styleClass="btn-primary" text="Con memorizacion" />
+                                    <ToggleButton fx:id="btnFibSinMemo" mnemonicParsing="false" styleClass="btn-primary" text="Sin memorizacion" />
+                                 </children>
+                              </HBox>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="208.0" GridPane.columnIndex="1">
+                                       <children>
+                                          <Label styleClass="stat-label" text="Resultado" />
+                                          <Label fx:id="lblFibResult" styleClass="stat-value" text="--" />
+                                          <VBox prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Label styleClass="stat-label" text="Complejidad actual" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                                       <children>
+                                          <Label styleClass="stat-label" text="LLamadas" />
+                                          <Label fx:id="lblFibCalls" styleClass="stat-value" text="--" />
+                                       </children>
+                                    </VBox>
+                                    <Label fx:id="lblFibComplexity" styleClass="stat-value-sm" text="--" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <Label styleClass="section-label" text="Pasos de ejecución" />
+                              <ListView fx:id="listSeptsFib" prefHeight="200.0" prefWidth="200.0" styleClass="steps-list" />
+                           </children>
+                        </VBox>
+                     </items>
+                  </SplitPane>
+               </content></Tab>
                 <Tab text="Grafico">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
