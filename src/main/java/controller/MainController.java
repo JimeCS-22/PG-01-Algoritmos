@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import model.Recursion;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,12 +60,11 @@ public class MainController implements Initializable {
     }
 
     private void runFactorial() {
-
         int n = (int) sliderFactN.getValue();
         AtomicInteger counter = new AtomicInteger(0);
-        long result = model.Recursion.factorial(n, counter);
+        long result = Recursion.factorial(n, counter);
         lblFactResult.setText(util.Utility.format(result));
-        lblFactCalls.setText(String.valueOf(counter.get()));
+        lblFactCalls.setText(String.valueOf(counter));
 
         //llenamos la lista  de pasos
         ObservableList<String> items = FXCollections.observableArrayList();
