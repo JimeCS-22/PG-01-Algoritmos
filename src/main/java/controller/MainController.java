@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import model.Recursion;
 import model.RecursionEngine;
 import model.TreePainter;
+import util.Utility;
 
 import java.net.URL;
 import java.util.*;
@@ -19,6 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainController implements Initializable {
 
+    //Elementos de Pantalla Factorial
     @javafx.fxml.FXML
     private Canvas canvasTree;
     @javafx.fxml.FXML
@@ -43,6 +45,8 @@ public class MainController implements Initializable {
     private final TreePainter painter = new TreePainter();
     private RecursionEngine.CallNode lastRoot;
     private List<RecursionEngine.CallNode> factBFS;
+
+    //Elementos de Pantalla Fibonacci
     @javafx.fxml.FXML
     private Label lblFibComplexity;
     @javafx.fxml.FXML
@@ -65,6 +69,8 @@ public class MainController implements Initializable {
     private ToggleButton btnFibSinMemo;
     @FXML
     private ToggleButton btnFibMemo;
+
+    //Elementos de pantalla gráficos
     @FXML
     private BarChart chartTimes;
     @FXML
@@ -72,12 +78,30 @@ public class MainController implements Initializable {
     @FXML
     private TabPane mainTabs;
 
+    //Elementos de Pantalla Fact-Fib. Parte Camila
+    @FXML
+    private TextField txtFieldValueN;
+    @FXML
+    private Label lblResult;
+    @FXML
+    private RadioButton btnFactorial;
+    @FXML
+    private Label lblTdeN;
+    @FXML
+    private Button btnCalcularFactFib;
+    @FXML
+    private Button btnLimpiarFactFib;
+    @FXML
+    private ListView<String> listFactFib;
+    @FXML
+    private RadioButton btnFibonacci;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setupFactTab();
         setupFibTab();
         setupGraficoTab();
+        setupFactFibTab();
     }
 
     private void setupFactTab() {
@@ -303,5 +327,60 @@ public class MainController implements Initializable {
         return new BenchResult(value, counter.get(), t2 - t1);
     }
 
+
+    ///Métodos para Fact-Fib
+
+    private void setupFactFibTab() {
+        ToggleGroup grupo = new ToggleGroup();
+        btnFibonacci.setToggleGroup(grupo);
+        btnFactorial.setToggleGroup(grupo);
+        btnCalcularFactFib.setOnAction(event -> runFactorialInFactFib());
+        btnLimpiarFactFib.setOnAction(e -> resetFactFibTab());
+    }
+
+    private void resetFactFibTab() {
+        lblTdeN.setText("-");
+        lblResult.setText("-");
+        txtFieldValueN.clear();
+    }
+
+    private void runFactorialInFactFib() {
+        int n = Integer.parseInt(txtFieldValueN.getText());
+       AtomicInteger counter = new AtomicInteger(0);
+
+        if (btnFactorial.isSelected()) {
+            long result = Recursion.factorial(n, counter);
+            lblResult.setText(Utility.format(result));
+
+            //llenamos el text area de info de las llamadas
+            ObservableList<String> items = FXCollections.observableArrayList();
+            for (int i = 0; i < engine.getSteps().size(); i++) {
+                RecursionEngine.Step step = engine.getSteps().get(i);
+                items.add(String.format("[%02d] %s", i+1, step.description));
+            }
+            listFactFib.setItems(items); //setteamos la lista de pasos recursivos
+            lblResult.setText(util.Utility.format(engine.getTreeRoot().result));
+            //listFactFib.setText(String.valueOf(engine.getCallCount()));
+            lblFibCalls.setText("O(" + n + ") llamadas");
+
+        } else if (btnFibonacci.isSelected()) {
+            int m = Integer.parseInt(txtFieldValueN.getText());;
+
+            long result = Recursion.fibonacci(m, counter);
+            ObservableList<String> items = FXCollections.observableArrayList();
+            for (int i = 0; i < engine.getSteps().size(); i++) {
+                RecursionEngine.Step step = engine.getSteps().get(i);
+                items.add(String.format("[%02d] %s", i + 1, step.description));
+            }
+            listFactFib.setItems(items);
+           // lblResult.setText(Utility.format(engine.getTreeRoot().result));
+            //lblResult.setText(String.valueOf(engine.getCallCount()));
+            lblResult.setText(""+result);
+            lblTdeN.setText("T(2^n) ≈ O(2^" + m + ") llamadas");
+
+        }
+
+
+    }
 
 }

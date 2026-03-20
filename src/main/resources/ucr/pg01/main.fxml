@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -15,7 +16,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -58,6 +60,94 @@
     <center>
         <TabPane fx:id="mainTabs" prefHeight="200.0" prefWidth="200.0" styleClass="main-tabs" stylesheets="@styles.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
+            <Tab text="Fact-Fib">
+               <content>
+                  <SplitPane prefHeight="160.0" prefWidth="200.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="290.0">
+                           <children>
+                              <VBox prefHeight="511.0" prefWidth="556.0" spacing="10.0">
+                                 <children>
+                                    <Label styleClass="panel-title" stylesheets="@styles.css" text="Cálculo de Factorial y Fibonacci" />
+                                    <HBox prefHeight="36.0" prefWidth="288.0" spacing="10.0">
+                                       <children>
+                                          <Label styleClass="param-label" stylesheets="@styles.css" text="Valor de n :" />
+                                          <TextField fx:id="txtFieldValueN" prefHeight="27.0" prefWidth="169.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="36.0" prefWidth="258.0" spacing="10.0">
+                                       <children>
+                                          <RadioButton fx:id="btnFactorial" mnemonicParsing="false" prefHeight="32.0" prefWidth="125.0" styleClass="btn-accent" text="Factorial" />
+                                          <RadioButton fx:id="btnFibonacci" mnemonicParsing="false" prefHeight="32.0" prefWidth="127.0" styleClass="btn-accent" text="Fibonacci" textAlignment="CENTER" wrapText="true">
+                                             <opaqueInsets>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </opaqueInsets>
+                                          </RadioButton>
+                                       </children>
+                                       <opaqueInsets>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </opaqueInsets>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox prefHeight="53.0" prefWidth="536.0" spacing="20.0">
+                                       <children>
+                                          <Button fx:id="btnCalcularFactFib" mnemonicParsing="false" prefHeight="48.0" prefWidth="98.0" styleClass="btn-primary" text="Calcular">
+                                             <font>
+                                                <Font size="31.0" />
+                                             </font>
+                                          </Button>
+                                          <Button fx:id="btnLimpiarFactFib" mnemonicParsing="false" prefHeight="32.0" prefWidth="81.0" styleClass="btn-ghost" text="Limpiar">
+                                             <font>
+                                                <Font size="39.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                    <HBox prefHeight="15.0" prefWidth="181.0" spacing="10.0">
+                                       <children>
+                                          <Label prefHeight="13.0" prefWidth="52.0" styleClass="stat-label" text="Resultado: " />
+                                          <Label fx:id="lblResult" prefHeight="18.0" prefWidth="200.0" styleClass="param-label" text="-----">
+                                             <opaqueInsets>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                             </opaqueInsets>
+                                          </Label>
+                                          <HBox prefHeight="18.0" prefWidth="251.0" spacing="10.0">
+                                             <children>
+                                                <Label prefHeight="13.0" prefWidth="44.0" styleClass="stat-label" text="T(n):" />
+                                                <Label fx:id="lblTdeN" prefHeight="18.0" prefWidth="197.0" styleClass="param-label" text="----" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </HBox>
+                                    <Label prefHeight="18.0" prefWidth="234.0" styleClass="panel-title" text="Llamadas recursivas:" />
+                                    <ListView fx:id="listFactFib" prefHeight="231.0" prefWidth="536.0" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </VBox>
+                              <ImageView fitHeight="148.0" fitWidth="233.0" layoutX="560.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imagenes/Fibonacci_Spiral.svg.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="135.0" fitWidth="230.0" layoutX="576.0" layoutY="261.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imagenes/factorial.jpg" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="615.0" layoutY="34.0" styleClass="panel-title" stylesheets="@styles.css" text="Secuencia Fibonacci" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </content>
+            </Tab>
                 <Tab text="Factorial">
                     <content>
                         <SplitPane dividerPositions="0.4582373271889401" prefHeight="200.0" prefWidth="200.0">
@@ -194,7 +284,7 @@
                      </items>
                   </SplitPane>
                </content></Tab>
-                <Tab text="Grafico">
+                <Tab text="Gráfico">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
@@ -231,42 +321,6 @@
                             </children></AnchorPane>
                     </content>
                 </Tab>
-            <Tab text="Fact-Fib">
-               <content>
-                  <SplitPane dividerPositions="0.4596774193548387" prefHeight="160.0" prefWidth="200.0">
-                    <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="231.0">
-                           <children>
-                              <Label layoutX="29.0" layoutY="14.0" prefHeight="14.0" prefWidth="170.0" styleClass="panel-title" text="Árbol de llamada" />
-                              <TreeView layoutX="29.0" layoutY="61.0" prefHeight="266.0" prefWidth="247.0" />
-                           </children>
-                        </AnchorPane>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="290.0">
-                           <children>
-                              <Label layoutX="14.0" layoutY="28.0" styleClass="pane" text="Valor de n " />
-                              <TextField layoutX="76.0" layoutY="23.0" />
-                              <RadioButton layoutX="76.0" layoutY="58.0" mnemonicParsing="false" text="Factorial" />
-                              <RadioButton layoutX="76.0" layoutY="82.0" mnemonicParsing="false" text="Fibonacci" />
-                              <Button layoutX="240.0" layoutY="22.0" mnemonicParsing="false" text="Calcular" />
-                              <Button layoutX="242.0" layoutY="54.0" mnemonicParsing="false" text="Limpiar" />
-                              <HBox layoutX="14.0" layoutY="129.0" prefHeight="92.0" prefWidth="330.0">
-                                 <children>
-                                    <Label text="Resultado" />
-                                    <Label text="-----" />
-                                 </children>
-                              </HBox>
-                              <HBox layoutX="13.0" layoutY="248.0" prefHeight="118.0" prefWidth="329.0">
-                                 <children>
-                                    <Label text="Tiempo" />
-                                    <Label text="----" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </content>
-            </Tab>
             </tabs>
         </TabPane>
     </center>
