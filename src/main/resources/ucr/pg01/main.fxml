@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.chart.BarChart?>
@@ -27,9 +28,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="828.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="828.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
     <top>
-        <VBox prefHeight="134.0" prefWidth="694.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
+        <VBox prefHeight="95.0" prefWidth="828.0" styleClass="header-bar" stylesheets="@styles.css" BorderPane.alignment="CENTER">
             <children>
                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="16.0" stylesheets="@styles.css">
                     <children>
@@ -150,14 +151,14 @@
             </Tab>
                 <Tab text="Factorial">
                     <content>
-                        <SplitPane dividerPositions="0.4582373271889401" prefHeight="200.0" prefWidth="200.0">
+                        <SplitPane dividerPositions="0.503864734299517" prefHeight="200.0" prefWidth="200.0">
                             <items>
                                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="panel">
                                     <children>
                                         <Label styleClass="panel-title" text="Árbol de llamadas recursivas" />
                                         <ScrollPane prefHeight="473.0" prefWidth="345.0">
                                             <content>
-                                                <Canvas fx:id="canvasTree" height="800.0" width="1200.0" />
+                                                <Canvas fx:id="canvasTree" height="1100.0" width="1500.0" />
                                             </content>
                                         </ScrollPane>                                    </children>
                                 </VBox>
@@ -217,14 +218,14 @@
                 </Tab>
                 <Tab text="Fibonacci">
                <content>
-                  <SplitPane dividerPositions="0.4582373271889401" prefHeight="200.0" prefWidth="200.0">
+                  <SplitPane dividerPositions="0.49782608695652175" prefHeight="200.0" prefWidth="200.0">
                      <items>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0" styleClass="panel">
                            <children>
                               <Label styleClass="panel-title" text="Árbol de llamadas recursivas" />
                                <ScrollPane prefHeight="473.0" prefWidth="345.0">
                                    <content>
-                                       <Canvas fx:id="canvasTreeFibo" height="800.0" width="1200.0" />
+                                       <Canvas fx:id="canvasTreeFibo" height="1100.0" width="1500.0" />
                                    </content>
                                </ScrollPane>                           </children>
                         </VBox>
@@ -235,6 +236,16 @@
                                  <children>
                                     <Label styleClass="param-label" text="n = " />
                                     <Label fx:id="lblFibN" styleClass="value-badge" text="5" />
+                                    <ToggleButton fx:id="btnFibMemo" mnemonicParsing="false" text="Con memorizacion">
+                                       <styleClass>
+                                          <String fx:value="toggle-left:selected, .toggle-right:selected" />
+                                          <String fx:value=".toggle-right" />
+                                       </styleClass></ToggleButton>
+                                    <ToggleButton fx:id="btnFibSinMemo" mnemonicParsing="false" text="Sin memorizacion">
+                                       <styleClass>
+                                          <String fx:value="toggle-left:selected, .toggle-right:selected" />
+                                          <String fx:value=".toggle-right" />
+                                       </styleClass></ToggleButton>
                                  </children>
                               </HBox>
                               <Slider fx:id="sliderFibN" prefHeight="14.0" prefWidth="315.0" showTickLabels="true" />
@@ -242,8 +253,6 @@
                                  <children>
                                     <Button fx:id="btnFibCalc" mnemonicParsing="false" styleClass="btn-primary" text="Calcular" />
                                     <Button fx:id="btnFibReset" mnemonicParsing="false" styleClass="btn-ghost" text="Limpiar" />
-                                    <ToggleButton fx:id="btnFibMemo" mnemonicParsing="false" styleClass="btn-primary" text="Con memorizacion" />
-                                    <ToggleButton fx:id="btnFibSinMemo" mnemonicParsing="false" styleClass="btn-primary" text="Sin memorizacion" />
                                  </children>
                               </HBox>
                               <GridPane>
@@ -278,7 +287,7 @@
                                  </children>
                               </GridPane>
                               <Label styleClass="section-label" text="Pasos de ejecución" />
-                              <ListView fx:id="listSeptsFib" prefHeight="200.0" prefWidth="200.0" styleClass="steps-list" />
+                              <ListView fx:id="listSeptsFib" prefHeight="244.0" prefWidth="384.0" styleClass="steps-list" />
                            </children>
                         </VBox>
                      </items>
