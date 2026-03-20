@@ -119,8 +119,6 @@ public class MainController implements Initializable {
         lblFactCalls.setText("-");
         lblComplexity.setText("-");
         listSteps.getItems().clear();
-
-
     }
 
     private void runFactorial() {
@@ -334,6 +332,7 @@ public class MainController implements Initializable {
         ToggleGroup grupo = new ToggleGroup();
         btnFibonacci.setToggleGroup(grupo);
         btnFactorial.setToggleGroup(grupo);
+        //verificación de campos vacios
         btnCalcularFactFib.setOnAction(event -> runFactorialInFactFib());
         btnLimpiarFactFib.setOnAction(e -> resetFactFibTab());
     }
@@ -342,45 +341,63 @@ public class MainController implements Initializable {
         lblTdeN.setText("-");
         lblResult.setText("-");
         txtFieldValueN.clear();
+        listFactFib.setItems(null);
     }
 
     private void runFactorialInFactFib() {
-        int n = Integer.parseInt(txtFieldValueN.getText());
-       AtomicInteger counter = new AtomicInteger(0);
+        if (txtFieldValueN.getText().isEmpty()) {
+            showAlert("Campos Vacíos", "Por favor, rellena todos los campos.");
+        }else {
+            int n = Integer.parseInt(txtFieldValueN.getText());
+            AtomicInteger counter = new AtomicInteger(0);
 
-        if (btnFactorial.isSelected()) {
-            long result = Recursion.factorial(n, counter);
-            lblResult.setText(Utility.format(result));
+            if (btnFactorial.isSelected()) {
+                long t1 = System.nanoTime();
+                long result = Recursion.factorial(n, counter);
+                long t2 = System.nanoTime();
 
-            //llenamos el text area de info de las llamadas
-            ObservableList<String> items = FXCollections.observableArrayList();
-            for (int i = 0; i < engine.getSteps().size(); i++) {
-                RecursionEngine.Step step = engine.getSteps().get(i);
-                items.add(String.format("[%02d] %s", i+1, step.description));
+                lblResult.setText(Utility.format(result));
+                lblTdeN.setText(util.Utility.format(t2 - t1) + " ns \n");
+
+                //llenamos el text area de info de las llamadas
+                ObservableList<String> items = FXCollections.observableArrayList();
+                for (int i = 0; i < engine.getSteps().size(); i++) {
+                    RecursionEngine.Step step = engine.getSteps().get(i);
+                    items.add(String.format("[%02d] %s", i + 1, step.description));
+                }
+                //setteamos la lista de pasos recursivos
+                listFactFib.setItems(items);
+
+            } else if (btnFibonacci.isSelected()) {
+                /* Determinar el tiempo de ejecución del algoritmo*/
+                int m = Integer.parseInt(txtFieldValueN.getText());
+                ;
+                long t1 = System.nanoTime();
+                long sum = 0;
+                for (int i = 1; i < n; i++) {
+                    sum += i;
+                }
+                long t2 = System.nanoTime();
+                long result = Recursion.fibonacci(m, counter);
+                ObservableList<String> items = FXCollections.observableArrayList();
+                for (int i = 0; i < engine.getSteps().size(); i++) {
+                    RecursionEngine.Step step = engine.getSteps().get(i);
+                    items.add(String.format("[%02d] %s", i + 1, step.description));
+                }
+                listFactFib.setItems(items);
+                lblResult.setText("" + result);
+                lblTdeN.setText(util.Utility.format(t2 - t1) + " ns \n");
+
             }
-            listFactFib.setItems(items); //setteamos la lista de pasos recursivos
-            lblResult.setText(util.Utility.format(engine.getTreeRoot().result));
-            //listFactFib.setText(String.valueOf(engine.getCallCount()));
-            lblFibCalls.setText("O(" + n + ") llamadas");
-
-        } else if (btnFibonacci.isSelected()) {
-            int m = Integer.parseInt(txtFieldValueN.getText());;
-
-            long result = Recursion.fibonacci(m, counter);
-            ObservableList<String> items = FXCollections.observableArrayList();
-            for (int i = 0; i < engine.getSteps().size(); i++) {
-                RecursionEngine.Step step = engine.getSteps().get(i);
-                items.add(String.format("[%02d] %s", i + 1, step.description));
-            }
-            listFactFib.setItems(items);
-           // lblResult.setText(Utility.format(engine.getTreeRoot().result));
-            //lblResult.setText(String.valueOf(engine.getCallCount()));
-            lblResult.setText(""+result);
-            lblTdeN.setText("T(2^n) ≈ O(2^" + m + ") llamadas");
-
         }
+    }
 
-
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null); // Sin texto de cabecera
+        alert.setContentText(message);
+        alert.showAndWait(); // Muestra el diálogo y espera a que el usuario lo cierre
     }
 
 }
