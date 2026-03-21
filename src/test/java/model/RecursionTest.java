@@ -79,6 +79,7 @@ class RecursionTest {
         for (int n : list) {
             AtomicInteger counter = new AtomicInteger(0); // Contador para llamadas recursivas
             long [] memo = new long[n+1]; // Cache para resultados ya calculados
+            Arrays.fill(memo, -1); // Inicializamos el arreglo con -1 para indicar que no se ha calculado
             long t1 = System.nanoTime();
             long result = Recursion.fibMemoArray(n, memo ,counter);
             long t2 = System.nanoTime();
