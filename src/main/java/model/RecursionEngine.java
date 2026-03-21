@@ -57,6 +57,18 @@ public class RecursionEngine {
     }
 
     // FACTORIAL RECURSIVO
+    /**
+     * Calcula el factorial de un número entero no negativo utilizando recursión.
+     * <p>
+     * Este método inicializa el estado necesario para el cálculo, incluyendo
+     * la estructura de seguimiento de llamadas (árbol de recursión) y el registro
+     * de pasos. Luego delega el cálculo al método recursivo interno.
+     * </p>
+     *
+     * <p>
+     * Además, almacena el resultado final como un paso en la lista de ejecución,
+     * incluyendo la representación textual del factorial calculado.
+     * </p>*/
     public long computeFactorial(int n){
         reset();
         treeRoot = new CallNode("fact("+n+")", n, 0);
@@ -66,6 +78,24 @@ public class RecursionEngine {
         return result;
     }
 
+    /**
+     * Método recursivo auxiliar que calcula el factorial de un número entero
+     * y construye simultáneamente un árbol de llamadas junto con un registro
+     * detallado de cada paso de ejecución.
+     *
+     * <p>
+     * En cada llamada, se incrementa el contador de llamadas y se registra
+     * un paso que representa la invocación actual. Luego:
+     * </p>
+     *
+     * <ul>
+     *   <li>Si {@code n <= 1}, se alcanza el caso base y se retorna 1.</li>
+     *   <li>En caso contrario, se realiza una llamada recursiva con {@code n - 1},
+     *       creando un nodo hijo en el árbol de llamadas.</li>
+     *   <li>Al regresar de la llamada recursiva, se calcula el resultado como
+     *       {@code n * factorial(n - 1)} y se registra el paso de retorno.</li>
+     * </ul>
+     */
     private long factorial(int n, CallNode parent, int depth) {
         callCount++;
         String label = "fact("+n+")";
@@ -119,6 +149,21 @@ public class RecursionEngine {
         return result;
     }
 
+    /**
+     * Método recursivo auxiliar que calcula el n-ésimo número de Fibonacci
+     * utilizando recursión con memoización, mientras construye un árbol de
+     * llamadas y registra cada paso de la ejecución.
+     *
+     * El cálculo sigue la definición clásica:
+     *
+     *   <li>{@code fib(0) = 0}</li>
+     *   <li>{@code fib(1) = 1}</li>
+     *   <li>{@code fib(n) = fib(n-1) + fib(n-2)}</li>
+     *
+     * Este método incluye optimización mediante memoización, almacenando
+     * resultados previamente calculados en una estructura {@code memo} para
+     * evitar recomputaciones innecesarias.
+     * */
     private long fibonacci(int n, CallNode parent, int depth){
 
         callCount++;

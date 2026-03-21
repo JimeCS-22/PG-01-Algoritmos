@@ -345,27 +345,31 @@ public class MainController implements Initializable {
     }
 
     private void runFactorialInFactFib() {
+        //Valida que el campo de entrada no esté vacío
         if (txtFieldValueN.getText().isEmpty()) {
             showAlert("Campos Vacíos", "Por favor, rellena todos los campos.");
             return;
         }
 
         int n;
+
         try {
+            //convertir el valor ingresado a un entero.
             n = Integer.parseInt(txtFieldValueN.getText());
         } catch (NumberFormatException ex) {
             showAlert("Dato inválido", "n debe ser un número entero.");
             return;
         }
-
+        //Verifica que el usuario haya seleccionado una opción (Factorial o Fibonacci).
         if (!btnFactorial.isSelected() && !btnFibonacci.isSelected()) {
             showAlert("Selecciona una opción", "Debes elegir Factorial o Fibonacci.");
             return;
         }
-
+        //Mide el tiempo de ejecución del cálculo.
         long t1 = System.nanoTime();
 
         long result;
+        //Invoca el método correspondiente del motor de recursión
         if (btnFactorial.isSelected()) {
             result = engine.computeFactorial(n);
         } else {
@@ -374,17 +378,18 @@ public class MainController implements Initializable {
 
         long t2 = System.nanoTime();
 
-        // Resultado y tiempo
+        // muestra el resultado y el tiempo en la interfaz
         lblResult.setText(Utility.format(result));
         lblTdeN.setText(util.Utility.format(t2 - t1) + " ns");
 
+        //Llena una lista con la descripción de cada paso del proceso
         ObservableList<String> items = FXCollections.observableArrayList();
                 for (int i = 0; i < engine.getSteps().size(); i++) {
                     RecursionEngine.Step step = engine.getSteps().get(i);
                     items.add(String.format("[%02d] %s", i + 1, step.description));
                 }
                 listFactFib.setItems(items);
-            }
+    }
 
 
 
