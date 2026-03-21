@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+C<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>

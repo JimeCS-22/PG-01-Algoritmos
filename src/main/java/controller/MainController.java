@@ -220,7 +220,7 @@ public class MainController implements Initializable {
         mainTabs.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
             if (newTab == null) return;
 
-            if ("Grafico".equalsIgnoreCase(newTab.getText())) {
+            if ("Gráfico".equalsIgnoreCase(newTab.getText())) {
                 cargarGraficosBenchmark();
             }
         });
@@ -347,50 +347,46 @@ public class MainController implements Initializable {
     private void runFactorialInFactFib() {
         if (txtFieldValueN.getText().isEmpty()) {
             showAlert("Campos Vacíos", "Por favor, rellena todos los campos.");
-        }else {
-            int n = Integer.parseInt(txtFieldValueN.getText());
-            AtomicInteger counter = new AtomicInteger(0);
-
-            if (btnFactorial.isSelected()) {
-                long t1 = System.nanoTime();
-                long result = Recursion.factorial(n, counter);
-                long t2 = System.nanoTime();
-
-                lblResult.setText(Utility.format(result));
-                lblTdeN.setText(util.Utility.format(t2 - t1) + " ns \n");
-
-                //llenamos el text area de info de las llamadas
-                ObservableList<String> items = FXCollections.observableArrayList();
-                for (int i = 0; i < engine.getSteps().size(); i++) {
-                    RecursionEngine.Step step = engine.getSteps().get(i);
-                    items.add(String.format("[%02d] %s", i + 1, step.description));
-                }
-                //setteamos la lista de pasos recursivos
-                listFactFib.setItems(items);
-
-            } else if (btnFibonacci.isSelected()) {
-                /* Determinar el tiempo de ejecución del algoritmo*/
-                int m = Integer.parseInt(txtFieldValueN.getText());
-                ;
-                long t1 = System.nanoTime();
-                long sum = 0;
-                for (int i = 1; i < n; i++) {
-                    sum += i;
-                }
-                long t2 = System.nanoTime();
-                long result = Recursion.fibonacci(m, counter);
-                ObservableList<String> items = FXCollections.observableArrayList();
-                for (int i = 0; i < engine.getSteps().size(); i++) {
-                    RecursionEngine.Step step = engine.getSteps().get(i);
-                    items.add(String.format("[%02d] %s", i + 1, step.description));
-                }
-                listFactFib.setItems(items);
-                lblResult.setText("" + result);
-                lblTdeN.setText(util.Utility.format(t2 - t1) + " ns \n");
-
-            }
+            return;
         }
-    }
+
+        int n;
+        try {
+            n = Integer.parseInt(txtFieldValueN.getText());
+        } catch (NumberFormatException ex) {
+            showAlert("Dato inválido", "n debe ser un número entero.");
+            return;
+        }
+
+        if (!btnFactorial.isSelected() && !btnFibonacci.isSelected()) {
+            showAlert("Selecciona una opción", "Debes elegir Factorial o Fibonacci.");
+            return;
+        }
+
+        long t1 = System.nanoTime();
+
+        long result;
+        if (btnFactorial.isSelected()) {
+            result = engine.computeFactorial(n);
+        } else {
+            result = engine.computeFibonacci(n);
+        }
+
+        long t2 = System.nanoTime();
+
+        // Resultado y tiempo
+        lblResult.setText(Utility.format(result));
+        lblTdeN.setText(util.Utility.format(t2 - t1) + " ns");
+
+        ObservableList<String> items = FXCollections.observableArrayList();
+                for (int i = 0; i < engine.getSteps().size(); i++) {
+                    RecursionEngine.Step step = engine.getSteps().get(i);
+                    items.add(String.format("[%02d] %s", i + 1, step.description));
+                }
+                listFactFib.setItems(items);
+            }
+
+
 
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
